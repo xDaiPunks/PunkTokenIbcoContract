@@ -1,32 +1,74 @@
-# xDaiPunks WebApp
-This is the first commit of the WebApp of xDaiPunks. It is a typical xDaiPunk WebApp. That means not a test to be found. We are still Human test bots
+# Punk Token IBCO
+The fundraising event of the PUNK token will be held through a so-called IBCO. This stands for Initial Bond Curve Offering. This is an offering where participants send funds (xDai) to a contract with a fixed supply of tokens during a set timespan. After the Offering has been completed, partipants can claim Punk tokens. The amount of tokens are proportional to the funds they have sent to the contract. The fixed supply will be devided, pro rata, amongst the participants. 
 
-## Architecture
-The WebApp connects to the Api to get  it's initial data object consisting of 10k Punks. This data object gets updated through contract events directly using the xdai ws connections. The ws connections might fail at times and allthough they reconnect, there can be data-gaps. A refresh of the webApp will get the data object again from the API that will be in sync
+An IBCO allows for a fair way to determine the value of a token and has the following properties:
+- 🤍 Same settlement price for everyone
+- 🤍 No front-running
+- 🤍 No pumps & dumps by whales
+- 🤍 No price manipulations
+- 🤍 Price increases with every purchase
+- 🤍 Collective, not competitive, contributions
+- 🤍 Pooling contributions in one batch
 
-## Running the app
-Please use nodejs 14 to run the app. node-sass-chokidar will fail on nodejs 16
+## Truffle
+The token has been created using Truffle and OpenZeppelin 
 
-To run the dev environment locally:
-
+### Deploying the token on a local environment
+Install truffle and ganache-cli globally:
 ```sh
-npm i && npm run start
+npm i truffle -g && npm i ganache-cli -g
 ```
 
-To build a production version:
+Install dependencies
 
 ```sh
-npm run build-production
+npm i 
 ```
 
-After generating the production version, you can run it locally by running a server like http-server from the build folder
+Run truffle commands for example
 
-The production build will throw an error as the copy file 
+```sh
+ganche-cli
 
+truffle build
 
+truffle deploy
+```
 
-## Connecting remix to localhost
+### Testing the IBCO contract
+Have ganache running
 
-from contract folder
-remixd -s ~/Projects/Nodejs/Punks/resources/xIP-000005 --remix-ide https://remix.ethereum.org/ 
+```sh
+ganche-cli
+```
+
+Install dependencies
+
+```sh
+npm i
+```
+
+Deploy the Punk token https://github.com/xDaiPunks/PunksTokenContract
+
+```sh
+truffle migrate
+```
+
+In the console you will see a contract address. This contract address is needed for the deployment of the IBCO contract
+
+Add the contract address, the current unix time and 600 seconds to the 1_initial_migration.js file. 
+
+https://github.com/xDaiPunks/PunksTokenContractIBCO/blob/main/migrations/1_initial_migration.js
+
+The current unix time can be found using javascript as well 
+
+```sh
+Math.round(new Date().getTime() / 1000)
+```
+
+To run the tests, run the following command
+
+```sh
+npm run test
+```
 
