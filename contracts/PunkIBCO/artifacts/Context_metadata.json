@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.6.12+commit.27d51765"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Punk/PunkIBCO.sol": "Context"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Punk/PunkIBCO.sol": {
+			"keccak256": "0x7c10e246b27ddee9d974438890a3ccf3493f305bf49142353a58bb689c20e776",
+			"license": "GPL-3.0-or-later",
+			"urls": [
+				"bzz-raw://68759eda2cecae159e974cae7b15cad20fde7427a8b4ca8faba576eb5ea84760",
+				"dweb:/ipfs/Qme1Zstb4Arumq9pHSN5RYRNpJbbSuq3yZNosrgbmya1Mz"
+			]
+		}
+	},
+	"version": 1
+}
