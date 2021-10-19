@@ -36,9 +36,15 @@ pragma solidity 0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract PunkIBCO is Ownable {
+/**
+ * @title PunkIBCO
+ * @dev Contract for the Initial Bond Curve Offering.
+ * The IBCO is based is a pro rata devision of the contribution and the fixed distribution of $PNK tokens
+ */
+contract PunkIBCO is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -68,7 +74,6 @@ contract PunkIBCO is Ownable {
      * @param _startTime: unix time of the start of the IBCO
      * @param _Punk: contract address of the Punk ERC20 token
      */
-
     constructor(
         uint256 _duration,
         uint256 _startTime,
@@ -109,7 +114,7 @@ contract PunkIBCO is Ownable {
      * Emits a {Claimed} event.
      */
 
-    function claim() external {
+    function claim() external nonReentrant {
         require(block.timestamp > endTime);
         require(senderContribution[msg.sender] > 0);
 

@@ -257,8 +257,20 @@
 			}
 		],
 		"devdoc": {
+			"details": "Contract for the Initial Bond Curve Offering. The IBCO is based is a pro rata devision of the contribution and the fixed distribution of $PNK tokens",
 			"kind": "dev",
 			"methods": {
+				"claim()": {
+					"details": "Transfers tokens pro rata to sendContribution mapping. If minimalRevenue is not met, the senderContribution will be returned Emits a {Claimed} event."
+				},
+				"constructor": {
+					"details": "Sets the values for {startTime}, {endTime} and {Punk} token.",
+					"params": {
+						"_Punk": ": contract address of the Punk ERC20 token",
+						"_duration": ": number of seconds the IBCO should last",
+						"_startTime": ": unix time of the start of the IBCO"
+					}
+				},
 				"owner()": {
 					"details": "Returns the address of the current owner."
 				},
@@ -267,8 +279,19 @@
 				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"updateFundraisingTime(uint256,uint256)": {
+					"details": "Updates {startTime} and {endTime} of IBCO if contract owner",
+					"params": {
+						"_duration": ": number of seconds the IBCO should last",
+						"_startTime": ": unix time of the start of the IBCO"
+					}
+				},
+				"withdraw()": {
+					"details": "Withdraws sent funds to contract owner when minimal revenue is met."
 				}
 			},
+			"title": "PunkIBCO",
 			"version": 1
 		},
 		"userdoc": {
@@ -299,6 +322,14 @@
 			"urls": [
 				"bzz-raw://b2ebbbe6d0011175bd9e7268b83de3f9c2f9d8d4cbfbaef12aff977d7d727163",
 				"dweb:/ipfs/Qmd5c7Vxtis9wzkDNhxwc6A2QT5H9xn9kfjhx7qx44vpro"
+			]
+		},
+		"@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+			"keccak256": "0x842ccf9a6cd33e17b7acef8372ca42090755217b358fe0c44c98e951ea549d3a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6cc5f36034a77d105263ae6d8cc18b16260b4a0f6cdb1a26f21ba3670fdd06dd",
+				"dweb:/ipfs/QmdJrJ2LoG546BkfyZPta96BNmaVBfqZoh8kq7PqHuQyPk"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
@@ -342,11 +373,11 @@
 			]
 		},
 		"IBCO/contracts/PunkIBCO/PunkIBCO.sol": {
-			"keccak256": "0x87ce86a8f993910a1e66b5c2c9a4edf6c921bd6edb67ac4cc5452d926b51df5f",
+			"keccak256": "0x61bd26b25d769b58a4517eeacaf51a405f81cc631df38f688d16afe18f73a413",
 			"license": "GPL-3.0-or-later",
 			"urls": [
-				"bzz-raw://aba0f34595648e5b6cd5d62b7a13495f64bac40c061c0abec9e9948c99555d2f",
-				"dweb:/ipfs/QmfQt7XJ3uLgoYBWwEJd8DkGzT7ahboTqwWpG5MDxd9KyA"
+				"bzz-raw://596ce8ad262634d6469736c1282fb13c8ae94f6715a8bb40512dc7305d54222e",
+				"dweb:/ipfs/QmZB2ESLfgE3x5os7fwqemnZ9HV1BnF6mb7zpsP4PTA9C8"
 			]
 		}
 	},
