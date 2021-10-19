@@ -48,7 +48,7 @@ Install dependencies
 npm i
 ```
 
-Deploy the Punk token https://github.com/xDaiPunks/PunksTokenContract
+Deploy the Punk token https://github.com/xDaiPunks/PunkTokenContract
 
 ```sh
 truffle migrate
@@ -58,7 +58,7 @@ In the console you will see a contract address. This contract address is needed 
 
 Add the contract address, the current unix time and 600 seconds to the 1_initial_migration.js file. 
 
-https://github.com/xDaiPunks/PunksTokenContractIBCO/blob/main/migrations/1_initial_migration.js
+https://github.com/xDaiPunks/PunkTokenContract/blob/main/migrations/1_initial_migration.js
 
 The current unix time can be found using javascript as well 
 
@@ -72,3 +72,21 @@ To run the tests, run the following command
 npm run test
 ```
 
+
+
+## Remix
+To interact with this contract using Remix IDE (https://remix.ethereum.org/) using your local file system, you can install the remixd package.
+
+If you want to test the claim command, please make sure the project is funded by transferrring funds from a deployed Token contract (https://github.com/xDaiPunks/PunkTokenContract)
+
+```sh
+npm install -g @remix-project/remixd
+```
+
+After install you can start remixd by issuing the followinng command:
+
+```sh
+remixd -s ~/YOUR-CONTRACT-DIRECTORY --remix-ide https://remix.ethereum.org/
+
+```
+Then in the Remix IDE choose 'localhost' as workspace and connect. You can also use your local ganache instance with Remix IDE. To do so, select 'Web3 Provider' for the environment. Make sure to have ganache-cli running 
