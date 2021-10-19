@@ -1,6 +1,8 @@
 # Punk Token IBCO
 The fundraising event of the PUNK token will be held through a so-called IBCO. This stands for Initial Bond Curve Offering. This is an offering where participants send funds (xDai) to a contract with a fixed supply of tokens during a set timespan. After the Offering has been completed, partipants can claim Punk tokens. The amount of tokens are proportional to the funds they have sent to the contract. The fixed supply will be devided, pro rata, amongst the participants. 
 
+The supply of $PNK tokens for the IBCO is 50.000.000;
+
 An IBCO allows for a fair way to determine the value of a token and has the following properties:
 - 🤍 Same settlement price for everyone
 - 🤍 No front-running
