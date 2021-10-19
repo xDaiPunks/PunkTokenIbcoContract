@@ -12,6 +12,20 @@ An IBCO allows for a fair way to determine the value of a token and has the foll
 - 🤍 Collective, not competitive, contributions
 - 🤍 Pooling contributions in one batch
 
+## Prerequisites
+The deployment of the contract requires the Punk token contract to be deployed.
+The Punk token contract can be found here: https://github.com/xDaiPunks/PunkTokenContract
+
+The contract addresses of the Punk token contract ais needed for the deployment of the contract.
+
+The deployment variables:
+- @param _duration: number of seconds the IBCO should last
+- @param _startTime: unix time of the start of the IBCO
+- @param _Punk: contract address of the Punk ERC20 token
+
+Note: if you are using remix and ganache you will need to fund the contract before the claims can be executed
+Funding is 50.000.000
+
 ## Truffle
 The IBCO contract has been created using Truffle and OpenZeppelin 
 
