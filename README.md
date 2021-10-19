@@ -13,7 +13,7 @@ An IBCO allows for a fair way to determine the value of a token and has the foll
 - 🤍 Pooling contributions in one batch
 
 ## Truffle
-The token has been created using Truffle and OpenZeppelin 
+The IBCO contract has been created using Truffle and OpenZeppelin 
 
 ### Deploying the token on a local environment
 Install truffle and ganache-cli globally:
