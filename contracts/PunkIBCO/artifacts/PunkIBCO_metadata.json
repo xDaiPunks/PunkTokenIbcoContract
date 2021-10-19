@@ -8,11 +8,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "contract IERC20",
-						"name": "_PNK",
-						"type": "address"
-					},
-					{
 						"internalType": "uint256",
 						"name": "_duration",
 						"type": "uint256"
@@ -21,6 +16,11 @@
 						"internalType": "uint256",
 						"name": "_startTime",
 						"type": "uint256"
+					},
+					{
+						"internalType": "contract IERC20",
+						"name": "_Punk",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -104,7 +104,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "PNK",
+				"name": "Punk",
 				"outputs": [
 					{
 						"internalType": "contract IERC20",
@@ -162,6 +162,13 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -169,7 +176,7 @@
 						"type": "address"
 					}
 				],
-				"name": "provided",
+				"name": "senderContribution",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -178,13 +185,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -342,11 +342,11 @@
 			]
 		},
 		"IBCO/contracts/PunkIBCO/PunkIBCO.sol": {
-			"keccak256": "0x10e643502988e6562ad24308a9696bff7f76928e2f740fdb77515f0519fa52d2",
+			"keccak256": "0x87ce86a8f993910a1e66b5c2c9a4edf6c921bd6edb67ac4cc5452d926b51df5f",
 			"license": "GPL-3.0-or-later",
 			"urls": [
-				"bzz-raw://cda5ac39417bf62db65a25eefd70584fdbb0a05f56a76e29cb01686b8c54e1ba",
-				"dweb:/ipfs/QmU1yDotBxwoEnUKftxLUuvq3bFThhnz6QjDtRFKU3i17R"
+				"bzz-raw://aba0f34595648e5b6cd5d62b7a13495f64bac40c061c0abec9e9948c99555d2f",
+				"dweb:/ipfs/QmfQt7XJ3uLgoYBWwEJd8DkGzT7ahboTqwWpG5MDxd9KyA"
 			]
 		}
 	},

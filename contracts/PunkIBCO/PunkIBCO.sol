@@ -34,84 +34,126 @@ pragma solidity 0.8.0;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/utils/math/SafeMath.sol';
-import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract PunkIBCO is Ownable {
-  using SafeMath for uint256;
-  using SafeERC20 for IERC20;
+    using SafeMath for uint256;
+    using SafeERC20 for IERC20;
 
-  event Received(address indexed account, uint256 amount);
-  event Claimed(address indexed account, uint256 userShare, uint256 punkAmount);
-
-  uint256 public endTime;
-  uint256 public startTime;
-
-  uint256 public totalRevenue = 0;
-  uint256 public minimalRevenue = 0;
-
-  uint256 public constant DISTRIBUTION = 50_000_000e18;
-
-  mapping(address => uint256) public provided;
-
-  IERC20 public immutable PNK;
-
-  constructor(
-    IERC20 _PNK,
-    uint256 _duration,
-    uint256 _startTime
-  ) {
-    PNK = _PNK;
-
-    startTime = _startTime;
-    endTime = _duration + _startTime;
-  }
-
-  receive() external payable {
-    require(startTime <= block.timestamp, 'The Initial Bond Curve Offering has not started yet');
-    require(block.timestamp <= endTime, 'The Initial Bond Curve Offering has ended');
-
-    totalRevenue += msg.value;
-    provided[msg.sender] += msg.value;
-
-    emit Received(msg.sender, msg.value);
-  }
-
-  function claim() external {
-    require(block.timestamp > endTime);
-    require(provided[msg.sender] > 0);
-
-    uint256 userShare = provided[msg.sender];
-
-    provided[msg.sender] = 0;
-
-    if (totalRevenue >= minimalRevenue) {
-      uint256 punkAmount = DISTRIBUTION.mul(userShare).div(totalRevenue);
-      PNK.safeTransfer(msg.sender, punkAmount);
-
-      emit Claimed(msg.sender, userShare, punkAmount);
-    } else {
-      payable(msg.sender).transfer(userShare);
-
-      emit Claimed(msg.sender, userShare, 0);
-    }
-  }
-
-  function withdraw() external onlyOwner {
-    require(
-      totalRevenue >= minimalRevenue,
-      'The minimal revenue has not been reached'
+    event Received(address indexed account, uint256 amount);
+    event Claimed(
+        address indexed account,
+        uint256 userShare,
+        uint256 punkAmount
     );
 
-    payable(owner()).transfer(address(this).balance);
-  }
+    uint256 public endTime;
+    uint256 public startTime;
 
-  function updateFundraisingTime(uint256 _duration, uint256 _startTime)
-    external
-    onlyOwner
-  {
-    startTime = _startTime;
-    endTime = _duration + _startTime;
-  }
+    uint256 public totalRevenue = 0;
+    uint256 public minimalRevenue = 0;
+
+    uint256 public constant DISTRIBUTION = 50_000_000e18;
+
+    mapping(address => uint256) public senderContribution;
+
+    IERC20 public immutable Punk;
+
+    /**
+     * @dev Sets the values for {startTime}, {endTime} and {Punk} token.
+     *
+     * @param _duration: number of seconds the IBCO should last
+     * @param _startTime: unix time of the start of the IBCO
+     * @param _Punk: contract address of the Punk ERC20 token
+     */
+
+    constructor(
+        uint256 _duration,
+        uint256 _startTime,
+        IERC20 _Punk
+    ) {
+        Punk = _Punk;
+
+        startTime = _startTime;
+        endTime = _duration + _startTime;
+    }
+
+    /**
+     * @dev Stores sent amount in sendContribution mapping.
+     *
+     * Emits a {Received} event.
+     */
+
+    receive() external payable {
+        require(
+            startTime <= block.timestamp,
+            "The Initial Bond Curve Offering has not started yet"
+        );
+        require(
+            block.timestamp <= endTime,
+            "The Initial Bond Curve Offering has ended"
+        );
+
+        totalRevenue += msg.value;
+        senderContribution[msg.sender] += msg.value;
+
+        emit Received(msg.sender, msg.value);
+    }
+
+    /**
+     * @dev Transfers tokens pro rata to sendContribution mapping.
+     * If minimalRevenue is not met, the senderContribution will be returned
+     *
+     * Emits a {Claimed} event.
+     */
+
+    function claim() external {
+        require(block.timestamp > endTime);
+        require(senderContribution[msg.sender] > 0);
+
+        uint256 userShare = senderContribution[msg.sender];
+
+        senderContribution[msg.sender] = 0;
+
+        if (totalRevenue >= minimalRevenue) {
+            uint256 punkAmount = DISTRIBUTION.mul(userShare).div(totalRevenue);
+            Punk.safeTransfer(msg.sender, punkAmount);
+
+            emit Claimed(msg.sender, userShare, punkAmount);
+        } else {
+            payable(msg.sender).transfer(userShare);
+
+            emit Claimed(msg.sender, userShare, 0);
+        }
+    }
+
+    /**
+     * @dev Withdraws sent funds to contract owner when minimal revenue is met.
+     */
+
+    function withdraw() external onlyOwner {
+        require(
+            totalRevenue >= minimalRevenue,
+            "The minimal revenue has not been reached"
+        );
+
+        payable(owner()).transfer(address(this).balance);
+    }
+
+    /**
+     * @dev Updates {startTime} and {endTime} of IBCO if contract owner
+     *
+     * @param _duration: number of seconds the IBCO should last
+     * @param _startTime: unix time of the start of the IBCO
+     */
+
+    function updateFundraisingTime(uint256 _duration, uint256 _startTime)
+        external
+        onlyOwner
+    {
+        startTime = _startTime;
+        endTime = _duration + _startTime;
+    }
 }
